@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { theme } from "~/theme";
-import axios, { AxiosError, AxiosResponse } from "axios"
+import axios, { AxiosResponse } from "axios"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,7 +23,7 @@ const queryClient = new QueryClient({
 axios.interceptors.response.use(
   (response: AxiosResponse) => response,
   ({ response }: { response: AxiosResponse }) => {
-    alert(`Failed with status code: ${response.status} ${response.statusText}`)
+    alert(`Request Failed`)
     return Promise.reject(response)
   }
 )
