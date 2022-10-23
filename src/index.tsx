@@ -10,7 +10,7 @@ import { theme } from "~/theme";
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { refetchOnWindowFocus: false, retry: false, staleTime: Infinity },
+    queries: { onError: err => alert(err), refetchOnWindowFocus: false, retry: false, staleTime: Infinity },
   },
 });
 
