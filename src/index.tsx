@@ -7,12 +7,26 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { theme } from "~/theme";
+import axios, { AxiosError, AxiosResponse } from "axios"
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { onError: err => alert(err), refetchOnWindowFocus: false, retry: false, staleTime: Infinity },
+    queries: {
+      // onError: err => alert(err),
+      refetchOnWindowFocus: false,
+      retry: false,
+      staleTime: Infinity
+    },
   },
 });
+
+axios.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  ({ response }: { response: AxiosResponse }) => {
+    alert(`Failed with status code: ${response.status} ${response.statusText}`)
+    return Promise.reject(response)
+  }
+)
 
 if (import.meta.env.DEV) {
   const { worker } = await import("./mocks/browser");
